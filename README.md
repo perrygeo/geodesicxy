@@ -5,6 +5,7 @@ Input an iterable of GeoJSON points with Y-values as properties
 Output two lists, xs and ys, suitable for plotting e.g. elevation profiles
 
 **xs** list calculated from geodesic (Great circle) distance between points.
+
 **ys** list taken directly from feature properties
 
 Example:
@@ -22,7 +23,7 @@ print(ys)
 which gives us
 
 ```
-[0, 44.047093225698326, 137.53481892584122]
+[0, 44.047093225698326, 137.53481892584122]  # X in miles by default
 [77.5, 88.5, 99.5]
 ```
 
@@ -35,7 +36,7 @@ Easy to intergrate with matplotlib for visualization
     plt.plot(xs, ys)
     plt.show()
 
-![plot][plot.png]
+<img src="plot.png" width="50%">
 
 # Getting Y properties for your points
 
