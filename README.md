@@ -27,9 +27,9 @@ which gives us
 [77.5, 88.5, 99.5]
 ```
 
-# Visualization
+## Visualization
 
-Easy to intergrate with matplotlib for visualization
+Easy to integrate with matplotlib for visualization
 
     import matplotlib.pyplot as plt
     xs, ys = profile(features, "elev")
@@ -38,7 +38,7 @@ Easy to intergrate with matplotlib for visualization
 
 <img src="plot.png" width="50%">
 
-# Getting Y properties for your points
+## Getting Y properties for your points
 
 Use [rasterstats](https://github.com/perrygeo/python-rasterstats)
 to query for underlying raster values at existing points
@@ -46,7 +46,7 @@ to query for underlying raster values at existing points
     from raster_stats import point_query
     features_w_elev = point_query(
                         features,
-                        "elev.tif",
+                        "elevation.tif",
                         property_name="elev",
                         geojson_out=True)
     xs, ys = profile(features_w_elev, "elev")
@@ -54,6 +54,6 @@ to query for underlying raster values at existing points
 Or with the Mapbox Surface API via
 
     import mapbox
-    res = mapbox.Surface().surface(features)
+    res = mapbox.Surface('mapbox.mapbox-terrain-v1').surface(features, fields=["elev"])
     features_w_elev = res.geojson()
     xs, ys = profile(features_w_elev, "elev")
