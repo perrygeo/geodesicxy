@@ -40,6 +40,7 @@ plt.show()
 # more succinctly, using argument unpacking
 # "Plot the profile of features with respect to elevation"
 plt.plot(*profile(features, "elev"))
+plt.show()
 ```
     
 
