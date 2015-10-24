@@ -9,7 +9,7 @@ Output two lists, xs and ys, suitable for plotting e.g. elevation profiles
 **ys** list taken directly from feature properties
 
 Example:
-```
+```python
 from geodesicxy import profile
 
 with open("points.geojson") as src:
@@ -31,10 +31,17 @@ which gives us
 
 Easy to integrate with matplotlib for visualization
 
-    import matplotlib.pyplot as plt
-    xs, ys = profile(features, "elev")
-    plt.plot(xs, ys)
-    plt.show()
+```python
+import matplotlib.pyplot as plt
+xs, ys = profile(features, "elev")
+plt.plot(xs, ys)
+plt.show()
+    
+# more succinctly, using argument unpacking
+# "Plot the profile of features with respect to elevation"
+plt.plot(*profile(features, "elev"))
+```
+    
 
 <img src="plot.png" width="50%">
 
@@ -43,17 +50,21 @@ Easy to integrate with matplotlib for visualization
 Use [rasterstats](https://github.com/perrygeo/python-rasterstats)
 to query for underlying raster values at existing points
 
-    from raster_stats import point_query
-    features_w_elev = point_query(
-                        features,
-                        "elevation.tif",
-                        property_name="elev",
-                        geojson_out=True)
-    xs, ys = profile(features_w_elev, "elev")
+```python
+from raster_stats import point_query
+features_w_elev = point_query(
+                    features,
+                    "elevation.tif",
+                    property_name="elev",
+                    geojson_out=True)
+xs, ys = profile(features_w_elev, "elev")
+```
 
 Or with the Mapbox Surface API via
 
-    import mapbox
-    res = mapbox.Surface('mapbox.mapbox-terrain-v1').surface(features, fields=["elev"])
-    features_w_elev = res.geojson()
-    xs, ys = profile(features_w_elev, "elev")
+```python
+import mapbox
+res = mapbox.Surface('mapbox.mapbox-terrain-v1').surface(features, fields=["elev"])
+features_w_elev = res.geojson()
+xs, ys = profile(features_w_elev, "elev")
+```
